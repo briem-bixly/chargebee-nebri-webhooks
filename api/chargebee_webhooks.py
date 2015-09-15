@@ -11,15 +11,35 @@ def all_events(request):
         event_data = request.BODY
     event_type = event_data['event_type'].split('_')[0]
     if event_type == 'customer':
-        event = Customer()
+        try:
+            event = Customer.get(chargebee_id=event_data['id'])
+            return {}
+        except Process.DoesNotExist:
+            event = Customer()
     elif event_type == 'subscription':
-        event = Subscription()
+        try:
+            event = Subscription.get(chargebee_id=event_data['id'])
+            return {}
+        except Process.DoesNotExist:
+            event = Subscription()
     elif event_type == 'invoice':
-        event = Invoice()
+        try:
+            event = Invoice.get(chargebee_id=event_data['id'])
+            return {}
+        except Process.DoesNotExist:
+            event = Invoice()
     elif event_type == 'payment':
-        event = Payment()
+        try:
+            event = Payment.get(chargebee_id=event_data['id'])
+            return {}
+        except Process.DoesNotExist:
+            event = Payment()
     elif event_type == 'card':
-        event = Card()
+        try:
+            event = Card.get(chargebee_id=event_data['id'])
+            return {}
+        except Process.DoesNotExist:
+            event = Card()
     else:
         return HttpResponseBadRequest
 
@@ -39,13 +59,17 @@ def customer_events(request):
     event_type = event_data['event_type'].split('_')[0]
     if event_type != 'customer':
         return HttpResponseBadRequest
-    event = Customer(
-        event_type=event_data['event_type'].split('_', 1)[1],
-        chargebee_id=event_data['id'],
-        date_received=datetime.now(),
-        raw_data=event_data
-    )
-    event.save()
+    try:
+        event = Customer.get(chargebee_id=event_data['id'])
+        return {}
+    except Process.DoesNotExist:
+        event = Customer(
+            event_type=event_data['event_type'].split('_', 1)[1],
+            chargebee_id=event_data['id'],
+            date_received=datetime.now(),
+            raw_data=event_data
+        )
+        event.save()
 
 
 @basic_auth_required(realm='chargebee')
@@ -57,13 +81,17 @@ def subscription_events(request):
     event_type = event_data['event_type'].split('_')[0]
     if event_type != 'subscription':
         return HttpResponseBadRequest
-    event = Subscription(
-        event_type=event_data['event_type'].split('_', 1)[1],
-        chargebee_id=event_data['id'],
-        date_received=datetime.now(),
-        raw_data=event_data
-    )
-    event.save()
+    try:
+        event = Subscription.get(chargebee_id=event_data['id'])
+        return {}
+    except Process.DoesNotExist:
+        event = Subscription(
+            event_type=event_data['event_type'].split('_', 1)[1],
+            chargebee_id=event_data['id'],
+            date_received=datetime.now(),
+            raw_data=event_data
+        )
+        event.save()
 
 
 @basic_auth_required(realm='chargebee')
@@ -75,13 +103,17 @@ def invoice_events(request):
     event_type = event_data['event_type'].split('_')[0]
     if event_type != 'invoice':
         return HttpResponseBadRequest
-    event = Invoice(
-        event_type=event_data['event_type'].split('_', 1)[1],
-        chargebee_id=event_data['id'],
-        date_received=datetime.now(),
-        raw_data=event_data
-    )
-    event.save()
+    try:
+        event = Invoice.get(chargebee_id=event_data['id'])
+        return {}
+    except Process.DoesNotExist:
+        event = Invoice(
+            event_type=event_data['event_type'].split('_', 1)[1],
+            chargebee_id=event_data['id'],
+            date_received=datetime.now(),
+            raw_data=event_data
+        )
+        event.save()
 
 
 @basic_auth_required(realm='chargebee')
@@ -93,13 +125,17 @@ def payment_events(request):
     event_type = event_data['event_type'].split('_')[0]
     if event_type != 'payment':
         return HttpResponseBadRequest
-    event = Payment(
-        event_type=event_data['event_type'].split('_', 1)[1],
-        chargebee_id=event_data['id'],
-        date_received=datetime.now(),
-        raw_data=event_data
-    )
-    event.save()
+    try:
+        event = Payment.get(chargebee_id=event_data['id'])
+        return {}
+    except Process.DoesNotExist:
+        event = Payment(
+            event_type=event_data['event_type'].split('_', 1)[1],
+            chargebee_id=event_data['id'],
+            date_received=datetime.now(),
+            raw_data=event_data
+        )
+        event.save()
 
 
 @basic_auth_required(realm='chargebee')
@@ -111,10 +147,15 @@ def card_events(request):
     event_type = event_data['event_type'].split('_')[0]
     if event_type != 'card':
         return HttpResponseBadRequest
-    event = Card(
-        event_type=event_data['event_type'].split('_', 1)[1],
-        chargebee_id=event_data['id'],
-        date_received=datetime.now(),
-        raw_data=event_data
-    )
-    event.save()
+    event = None
+    try:
+        event = Card.get(chargebee_id=event_data['id'])
+        return {}
+    except Process.DoesNotExist:
+        event = Card(
+            event_type=event_data['event_type'].split('_', 1)[1],
+            chargebee_id=event_data['id'],
+            date_received=datetime.now(),
+            raw_data=event_data
+        )
+        event.save()
