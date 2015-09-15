@@ -147,7 +147,6 @@ def card_events(request):
     event_type = event_data['event_type'].split('_')[0]
     if event_type != 'card':
         return HttpResponseBadRequest
-    event = None
     try:
         event = Card.get(chargebee_id=event_data['id'])
         return {}
