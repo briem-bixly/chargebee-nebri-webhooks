@@ -3,7 +3,7 @@
 This app is intended for use in a NebriOS instance. Visit https://nebrios.com to sign up for free!
 
 <h2>Requirements</h2>
-This app requires the use of https://github.com/briem-bixly/nebrios-authentication.
+This app requires the use of https://github.com/nebrie/nebrios-authentication.
 
 <h2>Usage</h2>
 Webhooks can be set up in ChargeBee on the Settings -> Webhook Settings page. The URL you enter depends on what event type you would like to listen to. However, it should look something like https://<strong>instance_name</strong>.nebrios.com/api/v1/chargebee_webhooks/<strong>chosen_endpoint</strong>. All endpoints require Basic Authentication.
@@ -94,4 +94,4 @@ Sample Request Body:
 ```
 
 <h2>Authentication</h2>
-All endpoints are protected with Basic Authentication. You must set up a username/password basic auth pair with a realm of 'chargebee' for these endpoints to work properly. See https://github.com/briem-bixly/nebrios-authentication for more information on setting up a username/password basic auth pair.
+All endpoints are protected with Basic Authentication. You must set up a username/password basic auth pair with a realm of 'chargebee' for these endpoints to work properly. See https://github.com/nebrie/nebrios-authentication for more information on setting up a username/password basic auth pair.
